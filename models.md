@@ -1,28 +1,30 @@
 # GGUF Models
 
-You can find the model download link, the command to run the model, the command to create an OpenAI compatible API server for the model, and the sha256sum of the model.
+You can find the model download link, the command to run the model, the command to create an **OpenAI compatible API server** for the model, and the sha256sum of the model.
 
+
+## Hottest Models
 <details>
-<summary> <b>Llama-2-7B-Chat</b> </summary>
+<summary> <b>Baichuan2-13B-Chat</b> </summary>
 <hr/>
 <b>Download the model</b>
 
 ```bash
-curl -LO https://huggingface.co/second-state/Llama-2-7B-Chat-GGUF/resolve/main/llama-2-7b-chat.Q5_K_M.gguf
+curl -LO https://huggingface.co/second-state/Baichuan2-13B-Chat-GGUF/resolve/main/Baichuan2-13B-Chat-ggml-model-q4_0.gguf
 ```
 
 Please check the sha256sum of the Downloaded model file to make sure it is correct.
 
 ```bash
-shasum -a 256 llama-2-7b-chat.Q5_K_M.gguf
-output: e0b99920cf47b94c78d2fb06a1eceb9ed795176dfa3f7feac64629f1b52b997f llama-2-7b-chat.Q5_K_M.gguf
+shasum -a 256 Baichuan2-13B-Chat-ggml-model-q4_0.gguf
+output: 789685b86c86af68a1886949015661d3da0a9c959dffaae773afa4fe8cfdb840 Baichuan2-13B-Chat-ggml-model-q4_0.gguf
 ```
 
 <b>Chat with the model on the CLI</b>
 
 ```bash
 curl -LO https://github.com/second-state/llama-utils/raw/main/chat/llama-chat.wasm
-wasmedge --dir .:. --nn-preload default:GGML:AUTO:llama-2-7b-chat.Q5_K_M.gguf llama-chat.wasm -p llama-2-chat
+wasmedge --dir .:. --nn-preload default:GGML:AUTO:Baichuan2-13B-Chat-ggml-model-q4_0.gguf llama-chat.wasm -p baichuan-2 -r '用户:'
 ```
 
 <b>Chat with the model via a web UI</b>
@@ -33,7 +35,7 @@ curl -LO https://github.com/second-state/chatbot-ui/releases/download/v0.1.0/cha
 tar xzf chatbot-ui.tar.gz
 rm chatbot-ui.tar.gz
 
-wasmedge --dir .:. --nn-preload default:GGML:AUTO:llama-2-7b-chat.Q5_K_M.gguf llama-api-server.wasm -p llama-2-chat
+wasmedge --dir .:. --nn-preload default:GGML:AUTO:Baichuan2-13B-Chat-ggml-model-q4_0.gguf llama-api-server.wasm -p baichuan-2 -r '用户:'
 ```
 
 Open your browser to http://localhost:8080 to start the chat!
@@ -46,32 +48,31 @@ Test the API server from another terminal using the following command
 curl -X POST http://localhost:8080/v1/chat/completions \
   -H 'accept:application/json' \
   -H 'Content-Type: application/json' \
-  -d '{"messages":[{"role":"system", "content": "You are a helpful assistant."}, {"role":"user", "content": "What is the capital of France?"}], "model":"llama-2-7b-chat"}'
+  -d '{"messages":[{"role":"system", "content": "You are a helpful assistant."}, {"role":"user", "content": "李白是谁"}], "model":"Baichuan2-13B-Chat"}'
 ```
 
 </details>
 
 <details>
-<summary> <b>Llama-2-13B-Chat</b> </summary>
+<summary> <b>Calm2-7B-Chat</b> </summary>
 <hr/>
 <b>Download the model</b>
 
 ```bash
-curl -LO https://huggingface.co/second-state/Llama-2-13B-Chat-GGUF/resolve/main/llama-2-13b-chat.Q5_K_M.gguf
+curl -LO https://huggingface.co/second-state/Calm2-7B-Chat-GGUF/resolve/main/calm2-7b-chat.Q4_K_M.gguf
 ```
 
-Please check the sha256sum of the Downloaded model file to make sure it is correct.
+Note that check the sha256 of `calm2-7b-chat.Q4_K_M.gguf` after downloading.
 
-```bash
-shasum -a 256 llama-2-13b-chat.Q5_K_M.gguf
-output: ef36e090240040f97325758c1ad8e23f3801466a8eece3a9eac2d22d942f548a llama-2-13b-chat.Q5_K_M.gguf
-```
+  ```text
+  42e829c19100c5d82c9432f0ee4c062e994fcf03966e8bfb2e92d1d91db12d56
+  ```
 
 <b>Chat with the model on the CLI</b>
 
 ```bash
 curl -LO https://github.com/second-state/llama-utils/raw/main/chat/llama-chat.wasm
-wasmedge --dir .:. --nn-preload default:GGML:AUTO:llama-2-13b-chat.Q5_K_M.gguf llama-chat.wasm -p llama-2-chat
+wasmedge --dir .:. --nn-preload default:GGML:AUTO:calm2-7b-chat.Q4_K_M.gguf llama-chat.wasm -p vicuna-1.1-chat
 ```
 
 <b>Chat with the model via a web UI</b>
@@ -82,7 +83,7 @@ curl -LO https://github.com/second-state/chatbot-ui/releases/download/v0.1.0/cha
 tar xzf chatbot-ui.tar.gz
 rm chatbot-ui.tar.gz
 
-wasmedge --dir .:. --nn-preload default:GGML:AUTO:llama-2-13b-chat.Q5_K_M.gguf llama-api-server.wasm -p llama-2-chat
+wasmedge --dir .:. --nn-preload default:GGML:AUTO:calm2-7b-chat.Q4_K_M.gguf llama-api-server.wasm -p vicuna-1.1-chat
 ```
 
 Open your browser to http://localhost:8080 to start the chat!
@@ -95,7 +96,7 @@ Test the API server from another terminal using the following command
 curl -X POST http://localhost:8080/v1/chat/completions \
   -H 'accept:application/json' \
   -H 'Content-Type: application/json' \
-  -d '{"messages":[{"role":"system", "content": "You are a helpful assistant."}, {"role":"user", "content": "What is the capital of France"}], "model":"llama-2-13b-chat"}'
+  -d '{"messages":[{"role":"system", "content": "You are a helpful assistant."}, {"role":"user", "content": "二日間の京都旅行計画"}], "model":"Calm2-7B-Chat"}'
 ```
 
 </details>
@@ -176,30 +177,28 @@ curl -X POST http://localhost:8080/v1/chat/completions \
 </details>
 
 <details>
-<summary> <b>Mistral-7B-Instruct-v0.1</b> </summary>
+<summary> <b>Llama-2-7B-Chat</b> </summary>
 <hr/>
 <b>Download the model</b>
 
 ```bash
-curl -LO https://huggingface.co/second-state/Mistral-7B-Instruct-v0.1-GGUF/resolve/main/mistral-7b-instruct-v0.1.Q5_K_M.gguf
+curl -LO https://huggingface.co/second-state/Llama-2-7B-Chat-GGUF/resolve/main/llama-2-7b-chat.Q5_K_M.gguf
 ```
 
-Please check the sha256sum of the Downloaded model file to make sure it is correct:
+Please check the sha256sum of the Downloaded model file to make sure it is correct.
 
 ```bash
-shasum -a 256 mistral-7b-instruct-v0.1.Q5_K_M.gguf
-output: c4b062ec7f0f160e848a0e34c4e291b9e39b3fc60df5b201c038e7064dbbdcdc mistral-7b-instruct-v0.1.Q5_K_M.gguf
-
-shasum -a 256 mistral-7b-instruct-v0.1.Q4_K_M.gguf
-output: 14466f9d658bf4a79f96c3f3f22759707c291cac4e62fea625e80c7d32169991 mistral-7b-instruct-v0.1.Q4_K_M.gguf
+shasum -a 256 llama-2-7b-chat.Q5_K_M.gguf
+output: e0b99920cf47b94c78d2fb06a1eceb9ed795176dfa3f7feac64629f1b52b997f llama-2-7b-chat.Q5_K_M.gguf
 ```
 
 <b>Chat with the model on the CLI</b>
 
 ```bash
 curl -LO https://github.com/second-state/llama-utils/raw/main/chat/llama-chat.wasm
-wasmedge --dir .:. --nn-preload default:GGML:AUTO:mistral-7b-instruct-v0.1.Q5_K_M.gguf llama-chat.wasm -p mistral-instruct
+wasmedge --dir .:. --nn-preload default:GGML:AUTO:llama-2-7b-chat.Q5_K_M.gguf llama-chat.wasm -p llama-2-chat
 ```
+
 <b>Chat with the model via a web UI</b>
 
 ```bash
@@ -208,7 +207,7 @@ curl -LO https://github.com/second-state/chatbot-ui/releases/download/v0.1.0/cha
 tar xzf chatbot-ui.tar.gz
 rm chatbot-ui.tar.gz
 
-wasmedge --dir .:. --nn-preload default:GGML:AUTO:mistral-7b-instruct-v0.1.Q5_K_M.gguf llama-api-server.wasm -p mistral-instruct
+wasmedge --dir .:. --nn-preload default:GGML:AUTO:llama-2-7b-chat.Q5_K_M.gguf llama-api-server.wasm -p llama-2-chat
 ```
 
 Open your browser to http://localhost:8080 to start the chat!
@@ -221,7 +220,7 @@ Test the API server from another terminal using the following command
 curl -X POST http://localhost:8080/v1/chat/completions \
   -H 'accept:application/json' \
   -H 'Content-Type: application/json' \
-  -d '{"messages":[{"role":"user", "content": "What is the capital of France?"}], "model":"Mistral-7B-Instruct-v0.1"}'
+  -d '{"messages":[{"role":"system", "content": "You are a helpful assistant."}, {"role":"user", "content": "What is the capital of France?"}], "model":"llama-2-7b-chat"}'
 ```
 
 </details>
@@ -276,26 +275,25 @@ curl -X POST http://localhost:8080/v1/chat/completions \
 </details>
 
 <details>
-<summary> <b>MistralLite-7B</b> </summary>
+<summary> <b>Mixtral-8x7B-Instruct-v0.1</b> </summary>
 <hr/>
 <b>Download the model</b>
 
 ```bash
-curl -LO https://huggingface.co/second-state/MistralLite-7B-GGUF/resolve/main/mistrallite.Q5_K_M.gguf
+curl -LO https://huggingface.co/second-state/Mixtral-8x7B-Instruct-v0.1-GGUF/resolve/main/mixtral-8x7b-instruct-v0.1.Q4_0.gguf
 ```
 
-Please check the sha256sum of the Downloaded model file to make sure it is correct.
+  Note that check the sha256 of `mixtral-8x7b-instruct-v0.1.Q4_0.gguf` after downloading.
 
-```bash
-shasum -a 256 mistrallite.Q5_K_M.gguf
-output: d06d149c24eea0446ea7aad596aca396fe7f3302441e9375d5bbd3fd9ba8ebea mistrallite.Q5_K_M.gguf
-```
+  ```text
+  0c57465507f21bed4364fca37efd310bee92e25a4ce4f5678ef9b44e95830e4e
+  ```
 
 <b>Chat with the model on the CLI</b>
 
 ```bash
 curl -LO https://github.com/second-state/llama-utils/raw/main/chat/llama-chat.wasm
-wasmedge --dir .:. --nn-preload default:GGML:AUTO:mistrallite.Q5_K_M.gguf llama-chat.wasm -p mistrallite -r '</s>'
+wasmedge --dir .:. --nn-preload default:GGML:AUTO:mixtral-8x7b-instruct-v0.1.Q4_0.gguf llama-chat.wasm -p mistral-instruct
 ```
 
 <b>Chat with the model via a web UI</b>
@@ -306,7 +304,7 @@ curl -LO https://github.com/second-state/chatbot-ui/releases/download/v0.1.0/cha
 tar xzf chatbot-ui.tar.gz
 rm chatbot-ui.tar.gz
 
-wasmedge --dir .:. --nn-preload default:GGML:AUTO:mistrallite.Q5_K_M.gguf llama-api-server.wasm -p mistrallite -r '</s>'
+wasmedge --dir .:. --nn-preload default:GGML:AUTO:mixtral-8x7b-instruct-v0.1.Q4_0.gguf llama-api-server.wasm -p mistral-instruct
 ```
 
 Open your browser to http://localhost:8080 to start the chat!
@@ -319,7 +317,7 @@ Test the API server from another terminal using the following command
 curl -X POST http://localhost:8080/v1/chat/completions \
   -H 'accept:application/json' \
   -H 'Content-Type: application/json' \
-  -d '{"messages":[{"role":"system", "content": "You are a helpful assistant."}, {"role":"user", "content": "What is the capital of France?"}], "model":"MistralLite-7B"}'
+  -d '{"messages":[{"role":"system", "content": "You are an AI programming assistant."}, {"role":"user", "content": "What is the capital of Paris"}], "model":"mixtral-8x7b-instruct-v0.1"}'
 ```
 
 </details>
@@ -372,6 +370,262 @@ curl -X POST http://localhost:8080/v1/chat/completions \
 ```
 
 </details>
+
+<details>
+<summary> <b>TinyLlama-1.1B-Chat-v0.3</b> </summary>
+<hr/>
+<b>Download the model</b>
+
+```bash
+curl -LO https://huggingface.co/second-state/TinyLlama-1.1B-Chat-v0.3-GGUF/resolve/main/tinyllama-1.1b-chat-v0.3.Q5_K_M.gguf
+```
+
+Please check the sha256sum of the Downloaded model file to make sure it is correct.
+
+```bash
+shasum -a 256 tinyllama-1.1b-chat-v0.3.Q5_K_M.gguf
+output: 7c255febbf29c97b5d6f57cdf62db2f2bc95c0e541dc72c0ca29786ca0fa5eed
+```
+
+<b>Chat with the model on the CLI</b>
+
+```bash
+curl -LO https://github.com/second-state/llama-utils/raw/main/chat/llama-chat.wasm
+wasmedge --dir .:. --nn-preload default:GGML:AUTO:tinyllama-1.1b-chat-v0.3.Q5_K_M.gguf llama-chat.wasm -p chatml
+```
+
+<b>Chat with the model via a web UI</b>
+
+```bash
+curl -LO https://github.com/second-state/llama-utils/raw/main/api-server/llama-api-server.wasm
+curl -LO https://github.com/second-state/chatbot-ui/releases/download/v0.1.0/chatbot-ui.tar.gz
+tar xzf chatbot-ui.tar.gz
+rm chatbot-ui.tar.gz
+
+wasmedge --dir .:. --nn-preload default:GGML:AUTO:tinyllama-1.1b-chat-v0.3.Q5_K_M.gguf llama-api-server.wasm -p chatml
+```
+
+Open your browser to http://localhost:8080 to start the chat!
+
+<b>Send an API request to the server</b>
+
+Test the API server from another terminal using the following command
+
+```bash
+curl -X POST http://localhost:8080/v1/chat/completions \
+  -H 'accept:application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{"messages":[{"role":"system", "content": "You are a helpful assistant."}, {"role":"user", "content": "What is the capital of France?"}], "model":"TinyLlama-1.1B-Chat"}'
+```
+
+</details>
+
+<details>
+<summary> <b>Yi-34B-Chat</b> </summary>
+<hr/>
+<b>Download the model</b>
+
+```bash
+curl -LO https://huggingface.co/second-state/Yi-34B-Chat-GGUF/resolve/main/Yi-34B-Chat-ggml-model-q4_0.gguf
+```
+
+Please check the sha256sum of the Downloaded model file to make sure it is correct.
+
+```bash
+shasum -a 256 Yi-34B-Chat-ggml-model-q4_0.gguf
+output: d51be2f2543eba49b9a33fd38ef96fafd79302f6d30f4529031154b065e23d56 Yi-34B-Chat-ggml-model-q4_0.gguf
+```
+
+<b>Chat with the model on the CLI</b>
+
+```bash
+curl -LO https://github.com/second-state/llama-utils/raw/main/chat/llama-chat.wasm
+wasmedge --dir .:. --nn-preload default:GGML:AUTO:Yi-34B-Chat-ggml-model-q4_0.gguf llama-chat.wasm -p chatml -r '<|im_end|>'
+```
+
+<b>Chat with the model via a web UI</b>
+
+```bash
+curl -LO https://github.com/second-state/llama-utils/raw/main/api-server/llama-api-server.wasm
+curl -LO https://github.com/second-state/chatbot-ui/releases/download/v0.1.0/chatbot-ui.tar.gz
+tar xzf chatbot-ui.tar.gz
+rm chatbot-ui.tar.gz
+wasmedge --dir .:. --nn-preload default:GGML:AUTO:Yi-34B-Chat-ggml-model-q4_0.gguf llama-api-server.wasm -p chatml -r '<|im_end|>'
+```
+
+Open your browser to http://localhost:8080 to start the chat!
+
+<b>Send an API request to the server</b>
+
+Test the API server from another terminal using the following command
+
+```bash
+curl -X POST http://localhost:8080/v1/chat/completions \
+  -H 'accept:application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{"messages":[{"role":"system", "content": "You are a helpful assistant."}, {"role":"user", "content": "What is the capital of France?"}], "model":"Yi-34B-Chat"}'
+```
+
+</details>
+
+
+## Other
+
+
+<details>
+<summary> <b>Llama-2-13B-Chat</b> </summary>
+<hr/>
+<b>Download the model</b>
+
+```bash
+curl -LO https://huggingface.co/second-state/Llama-2-13B-Chat-GGUF/resolve/main/llama-2-13b-chat.Q5_K_M.gguf
+```
+
+Please check the sha256sum of the Downloaded model file to make sure it is correct.
+
+```bash
+shasum -a 256 llama-2-13b-chat.Q5_K_M.gguf
+output: ef36e090240040f97325758c1ad8e23f3801466a8eece3a9eac2d22d942f548a llama-2-13b-chat.Q5_K_M.gguf
+```
+
+<b>Chat with the model on the CLI</b>
+
+```bash
+curl -LO https://github.com/second-state/llama-utils/raw/main/chat/llama-chat.wasm
+wasmedge --dir .:. --nn-preload default:GGML:AUTO:llama-2-13b-chat.Q5_K_M.gguf llama-chat.wasm -p llama-2-chat
+```
+
+<b>Chat with the model via a web UI</b>
+
+```bash
+curl -LO https://github.com/second-state/llama-utils/raw/main/api-server/llama-api-server.wasm
+curl -LO https://github.com/second-state/chatbot-ui/releases/download/v0.1.0/chatbot-ui.tar.gz
+tar xzf chatbot-ui.tar.gz
+rm chatbot-ui.tar.gz
+
+wasmedge --dir .:. --nn-preload default:GGML:AUTO:llama-2-13b-chat.Q5_K_M.gguf llama-api-server.wasm -p llama-2-chat
+```
+
+Open your browser to http://localhost:8080 to start the chat!
+
+<b>Send an API request to the server</b>
+
+Test the API server from another terminal using the following command
+
+```bash
+curl -X POST http://localhost:8080/v1/chat/completions \
+  -H 'accept:application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{"messages":[{"role":"system", "content": "You are a helpful assistant."}, {"role":"user", "content": "What is the capital of France"}], "model":"llama-2-13b-chat"}'
+```
+
+</details>
+
+
+
+<details>
+<summary> <b>Mistral-7B-Instruct-v0.1</b> </summary>
+<hr/>
+<b>Download the model</b>
+
+```bash
+curl -LO https://huggingface.co/second-state/Mistral-7B-Instruct-v0.1-GGUF/resolve/main/mistral-7b-instruct-v0.1.Q5_K_M.gguf
+```
+
+Please check the sha256sum of the Downloaded model file to make sure it is correct:
+
+```bash
+shasum -a 256 mistral-7b-instruct-v0.1.Q5_K_M.gguf
+output: c4b062ec7f0f160e848a0e34c4e291b9e39b3fc60df5b201c038e7064dbbdcdc mistral-7b-instruct-v0.1.Q5_K_M.gguf
+
+shasum -a 256 mistral-7b-instruct-v0.1.Q4_K_M.gguf
+output: 14466f9d658bf4a79f96c3f3f22759707c291cac4e62fea625e80c7d32169991 mistral-7b-instruct-v0.1.Q4_K_M.gguf
+```
+
+<b>Chat with the model on the CLI</b>
+
+```bash
+curl -LO https://github.com/second-state/llama-utils/raw/main/chat/llama-chat.wasm
+wasmedge --dir .:. --nn-preload default:GGML:AUTO:mistral-7b-instruct-v0.1.Q5_K_M.gguf llama-chat.wasm -p mistral-instruct
+```
+<b>Chat with the model via a web UI</b>
+
+```bash
+curl -LO https://github.com/second-state/llama-utils/raw/main/api-server/llama-api-server.wasm
+curl -LO https://github.com/second-state/chatbot-ui/releases/download/v0.1.0/chatbot-ui.tar.gz
+tar xzf chatbot-ui.tar.gz
+rm chatbot-ui.tar.gz
+
+wasmedge --dir .:. --nn-preload default:GGML:AUTO:mistral-7b-instruct-v0.1.Q5_K_M.gguf llama-api-server.wasm -p mistral-instruct
+```
+
+Open your browser to http://localhost:8080 to start the chat!
+
+<b>Send an API request to the server</b>
+
+Test the API server from another terminal using the following command
+
+```bash
+curl -X POST http://localhost:8080/v1/chat/completions \
+  -H 'accept:application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{"messages":[{"role":"user", "content": "What is the capital of France?"}], "model":"Mistral-7B-Instruct-v0.1"}'
+```
+
+</details>
+
+
+
+<details>
+<summary> <b>MistralLite-7B</b> </summary>
+<hr/>
+<b>Download the model</b>
+
+```bash
+curl -LO https://huggingface.co/second-state/MistralLite-7B-GGUF/resolve/main/mistrallite.Q5_K_M.gguf
+```
+
+Please check the sha256sum of the Downloaded model file to make sure it is correct.
+
+```bash
+shasum -a 256 mistrallite.Q5_K_M.gguf
+output: d06d149c24eea0446ea7aad596aca396fe7f3302441e9375d5bbd3fd9ba8ebea mistrallite.Q5_K_M.gguf
+```
+
+<b>Chat with the model on the CLI</b>
+
+```bash
+curl -LO https://github.com/second-state/llama-utils/raw/main/chat/llama-chat.wasm
+wasmedge --dir .:. --nn-preload default:GGML:AUTO:mistrallite.Q5_K_M.gguf llama-chat.wasm -p mistrallite -r '</s>'
+```
+
+<b>Chat with the model via a web UI</b>
+
+```bash
+curl -LO https://github.com/second-state/llama-utils/raw/main/api-server/llama-api-server.wasm
+curl -LO https://github.com/second-state/chatbot-ui/releases/download/v0.1.0/chatbot-ui.tar.gz
+tar xzf chatbot-ui.tar.gz
+rm chatbot-ui.tar.gz
+
+wasmedge --dir .:. --nn-preload default:GGML:AUTO:mistrallite.Q5_K_M.gguf llama-api-server.wasm -p mistrallite -r '</s>'
+```
+
+Open your browser to http://localhost:8080 to start the chat!
+
+<b>Send an API request to the server</b>
+
+Test the API server from another terminal using the following command
+
+```bash
+curl -X POST http://localhost:8080/v1/chat/completions \
+  -H 'accept:application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{"messages":[{"role":"system", "content": "You are a helpful assistant."}, {"role":"user", "content": "What is the capital of France?"}], "model":"MistralLite-7B"}'
+```
+
+</details>
+
+
 
 <details>
 <summary> <b>Wizard-Vicuna</b> </summary>
@@ -471,103 +725,8 @@ curl -X POST http://localhost:8080/v1/chat/completions \
 
 </details>
 
-<details>
-<summary> <b>TinyLlama-1.1B-Chat-v0.3</b> </summary>
-<hr/>
-<b>Download the model</b>
 
-```bash
-curl -LO https://huggingface.co/second-state/TinyLlama-1.1B-Chat-v0.3-GGUF/resolve/main/tinyllama-1.1b-chat-v0.3.Q5_K_M.gguf
-```
 
-Please check the sha256sum of the Downloaded model file to make sure it is correct.
-
-```bash
-shasum -a 256 tinyllama-1.1b-chat-v0.3.Q5_K_M.gguf
-output: 7c255febbf29c97b5d6f57cdf62db2f2bc95c0e541dc72c0ca29786ca0fa5eed
-```
-
-<b>Chat with the model on the CLI</b>
-
-```bash
-curl -LO https://github.com/second-state/llama-utils/raw/main/chat/llama-chat.wasm
-wasmedge --dir .:. --nn-preload default:GGML:AUTO:tinyllama-1.1b-chat-v0.3.Q5_K_M.gguf llama-chat.wasm -p chatml
-```
-
-<b>Chat with the model via a web UI</b>
-
-```bash
-curl -LO https://github.com/second-state/llama-utils/raw/main/api-server/llama-api-server.wasm
-curl -LO https://github.com/second-state/chatbot-ui/releases/download/v0.1.0/chatbot-ui.tar.gz
-tar xzf chatbot-ui.tar.gz
-rm chatbot-ui.tar.gz
-
-wasmedge --dir .:. --nn-preload default:GGML:AUTO:tinyllama-1.1b-chat-v0.3.Q5_K_M.gguf llama-api-server.wasm -p chatml
-```
-
-Open your browser to http://localhost:8080 to start the chat!
-
-<b>Send an API request to the server</b>
-
-Test the API server from another terminal using the following command
-
-```bash
-curl -X POST http://localhost:8080/v1/chat/completions \
-  -H 'accept:application/json' \
-  -H 'Content-Type: application/json' \
-  -d '{"messages":[{"role":"system", "content": "You are a helpful assistant."}, {"role":"user", "content": "What is the capital of France?"}], "model":"TinyLlama-1.1B-Chat"}'
-```
-
-</details>
-
-<details>
-<summary> <b>Baichuan2-13B-Chat</b> </summary>
-<hr/>
-<b>Download the model</b>
-
-```bash
-curl -LO https://huggingface.co/second-state/Baichuan2-13B-Chat-GGUF/resolve/main/Baichuan2-13B-Chat-ggml-model-q4_0.gguf
-```
-
-Please check the sha256sum of the Downloaded model file to make sure it is correct.
-
-```bash
-shasum -a 256 Baichuan2-13B-Chat-ggml-model-q4_0.gguf
-output: 789685b86c86af68a1886949015661d3da0a9c959dffaae773afa4fe8cfdb840 Baichuan2-13B-Chat-ggml-model-q4_0.gguf
-```
-
-<b>Chat with the model on the CLI</b>
-
-```bash
-curl -LO https://github.com/second-state/llama-utils/raw/main/chat/llama-chat.wasm
-wasmedge --dir .:. --nn-preload default:GGML:AUTO:Baichuan2-13B-Chat-ggml-model-q4_0.gguf llama-chat.wasm -p baichuan-2 -r '用户:'
-```
-
-<b>Chat with the model via a web UI</b>
-
-```bash
-curl -LO https://github.com/second-state/llama-utils/raw/main/api-server/llama-api-server.wasm
-curl -LO https://github.com/second-state/chatbot-ui/releases/download/v0.1.0/chatbot-ui.tar.gz
-tar xzf chatbot-ui.tar.gz
-rm chatbot-ui.tar.gz
-
-wasmedge --dir .:. --nn-preload default:GGML:AUTO:Baichuan2-13B-Chat-ggml-model-q4_0.gguf llama-api-server.wasm -p baichuan-2 -r '用户:'
-```
-
-Open your browser to http://localhost:8080 to start the chat!
-
-<b>Send an API request to the server</b>
-
-Test the API server from another terminal using the following command
-
-```bash
-curl -X POST http://localhost:8080/v1/chat/completions \
-  -H 'accept:application/json' \
-  -H 'Content-Type: application/json' \
-  -d '{"messages":[{"role":"system", "content": "You are a helpful assistant."}, {"role":"user", "content": "李白是谁"}], "model":"Baichuan2-13B-Chat"}'
-```
-
-</details>
 
 <details>
 <summary> <b>OpenHermes-2.5-Mistral-7B</b> </summary>
@@ -1401,53 +1560,7 @@ curl -X POST http://localhost:8080/v1/chat/completions \
 
 </details>
 
-<details>
-<summary> <b>Yi-34B-Chat</b> </summary>
-<hr/>
-<b>Download the model</b>
 
-```bash
-curl -LO https://huggingface.co/second-state/Yi-34B-Chat-GGUF/resolve/main/Yi-34B-Chat-ggml-model-q4_0.gguf
-```
-
-Please check the sha256sum of the Downloaded model file to make sure it is correct.
-
-```bash
-shasum -a 256 Yi-34B-Chat-ggml-model-q4_0.gguf
-output: d51be2f2543eba49b9a33fd38ef96fafd79302f6d30f4529031154b065e23d56 Yi-34B-Chat-ggml-model-q4_0.gguf
-```
-
-<b>Chat with the model on the CLI</b>
-
-```bash
-curl -LO https://github.com/second-state/llama-utils/raw/main/chat/llama-chat.wasm
-wasmedge --dir .:. --nn-preload default:GGML:AUTO:Yi-34B-Chat-ggml-model-q4_0.gguf llama-chat.wasm -p chatml -r '<|im_end|>'
-```
-
-<b>Chat with the model via a web UI</b>
-
-```bash
-curl -LO https://github.com/second-state/llama-utils/raw/main/api-server/llama-api-server.wasm
-curl -LO https://github.com/second-state/chatbot-ui/releases/download/v0.1.0/chatbot-ui.tar.gz
-tar xzf chatbot-ui.tar.gz
-rm chatbot-ui.tar.gz
-wasmedge --dir .:. --nn-preload default:GGML:AUTO:Yi-34B-Chat-ggml-model-q4_0.gguf llama-api-server.wasm -p chatml -r '<|im_end|>'
-```
-
-Open your browser to http://localhost:8080 to start the chat!
-
-<b>Send an API request to the server</b>
-
-Test the API server from another terminal using the following command
-
-```bash
-curl -X POST http://localhost:8080/v1/chat/completions \
-  -H 'accept:application/json' \
-  -H 'Content-Type: application/json' \
-  -d '{"messages":[{"role":"system", "content": "You are a helpful assistant."}, {"role":"user", "content": "What is the capital of France?"}], "model":"Yi-34B-Chat"}'
-```
-
-</details>
 
 <details>
 <summary> <b>Starling-LM-7B-alpha</b> </summary>
@@ -1498,53 +1611,7 @@ curl -X POST http://localhost:8080/v1/chat/completions \
 
 </details>
 
-<details>
-<summary> <b>Calm2-7B-Chat</b> </summary>
-<hr/>
-<b>Download the model</b>
 
-```bash
-curl -LO https://huggingface.co/second-state/Calm2-7B-Chat-GGUF/resolve/main/calm2-7b-chat.Q4_K_M.gguf
-```
-
-Note that check the sha256 of `calm2-7b-chat.Q4_K_M.gguf` after downloading.
-
-  ```text
-  42e829c19100c5d82c9432f0ee4c062e994fcf03966e8bfb2e92d1d91db12d56
-  ```
-
-<b>Chat with the model on the CLI</b>
-
-```bash
-curl -LO https://github.com/second-state/llama-utils/raw/main/chat/llama-chat.wasm
-wasmedge --dir .:. --nn-preload default:GGML:AUTO:calm2-7b-chat.Q4_K_M.gguf llama-chat.wasm -p vicuna-1.1-chat
-```
-
-<b>Chat with the model via a web UI</b>
-
-```bash
-curl -LO https://github.com/second-state/llama-utils/raw/main/api-server/llama-api-server.wasm
-curl -LO https://github.com/second-state/chatbot-ui/releases/download/v0.1.0/chatbot-ui.tar.gz
-tar xzf chatbot-ui.tar.gz
-rm chatbot-ui.tar.gz
-
-wasmedge --dir .:. --nn-preload default:GGML:AUTO:calm2-7b-chat.Q4_K_M.gguf llama-api-server.wasm -p vicuna-1.1-chat
-```
-
-Open your browser to http://localhost:8080 to start the chat!
-
-<b>Send an API request to the server</b>
-
-Test the API server from another terminal using the following command
-
-```bash
-curl -X POST http://localhost:8080/v1/chat/completions \
-  -H 'accept:application/json' \
-  -H 'Content-Type: application/json' \
-  -d '{"messages":[{"role":"system", "content": "You are a helpful assistant."}, {"role":"user", "content": "二日間の京都旅行計画"}], "model":"Calm2-7B-Chat"}'
-```
-
-</details>
 
 <details>
 <summary> <b>DeepSeek-Coder-6.7B</b> </summary>
@@ -1690,50 +1757,4 @@ curl -X POST http://localhost:8080/v1/chat/completions \
 
 </details>
 
-<details>
-<summary> <b>Mixtral-8x7B-Instruct-v0.1</b> </summary>
-<hr/>
-<b>Download the model</b>
 
-```bash
-curl -LO https://huggingface.co/second-state/Mixtral-8x7B-Instruct-v0.1-GGUF/resolve/main/mixtral-8x7b-instruct-v0.1.Q4_0.gguf
-```
-
-  Note that check the sha256 of `mixtral-8x7b-instruct-v0.1.Q4_0.gguf` after downloading.
-
-  ```text
-  0c57465507f21bed4364fca37efd310bee92e25a4ce4f5678ef9b44e95830e4e
-  ```
-
-<b>Chat with the model on the CLI</b>
-
-```bash
-curl -LO https://github.com/second-state/llama-utils/raw/main/chat/llama-chat.wasm
-wasmedge --dir .:. --nn-preload default:GGML:AUTO:mixtral-8x7b-instruct-v0.1.Q4_0.gguf llama-chat.wasm -p mistral-instruct
-```
-
-<b>Chat with the model via a web UI</b>
-
-```bash
-curl -LO https://github.com/second-state/llama-utils/raw/main/api-server/llama-api-server.wasm
-curl -LO https://github.com/second-state/chatbot-ui/releases/download/v0.1.0/chatbot-ui.tar.gz
-tar xzf chatbot-ui.tar.gz
-rm chatbot-ui.tar.gz
-
-wasmedge --dir .:. --nn-preload default:GGML:AUTO:mixtral-8x7b-instruct-v0.1.Q4_0.gguf llama-api-server.wasm -p mistral-instruct
-```
-
-Open your browser to http://localhost:8080 to start the chat!
-
-<b>Send an API request to the server</b>
-
-Test the API server from another terminal using the following command
-
-```bash
-curl -X POST http://localhost:8080/v1/chat/completions \
-  -H 'accept:application/json' \
-  -H 'Content-Type: application/json' \
-  -d '{"messages":[{"role":"system", "content": "You are an AI programming assistant."}, {"role":"user", "content": "What is the capital of Paris"}], "model":"mixtral-8x7b-instruct-v0.1"}'
-```
-
-</details>
